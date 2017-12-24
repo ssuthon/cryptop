@@ -1,6 +1,6 @@
 let _ = require('lodash')
 let axios = require('axios')
-
+axios.defaults.headers.common['Cache-Control'] = 'no-cache'
 
 let service = {
 
