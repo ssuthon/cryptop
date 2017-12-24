@@ -1,5 +1,6 @@
 import { take, call, put } from 'redux-saga/effects';
 import axios from 'axios'
+axios.defaults.headers.common['Cache-Control'] = 'no-cache'
 
 import {
   fetchStats,
