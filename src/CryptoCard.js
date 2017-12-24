@@ -8,7 +8,7 @@ class CryptoCard extends Component {
     }
 
     componentDidMount(){
-        this.chart.mount(this.chartComponent)
+        //this.chart.mount(this.chartComponent)
     }
 
     render(){
