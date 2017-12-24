@@ -10,7 +10,7 @@ export function* doFetch(){
   while(true){    
     yield take(`${fetchStats}`);
 
-    let response = yield call(axios.get,'http://localhost:8007/stats')
+    let response = yield call(axios.get,'http://d.bonmek.com:8007/stats')
         
     if(response.data){
       yield put(updateStats(response.data))
