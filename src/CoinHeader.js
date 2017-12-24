@@ -11,7 +11,10 @@ class CoinHeader extends Component {
                     {this.props.coin.toUpperCase()}
                 </div>
                 <div className="coin_info">
-                    <CoinInfo {...this.props}/>
+                    <CoinInfo {...this.props} market="bx"/>                    
+                </div>
+                <div className="coin_info">
+                    <CoinInfo {...this.props} market="cmc"/>                    
                 </div>
             </div>		        
         );

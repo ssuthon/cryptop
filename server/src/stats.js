@@ -2,24 +2,45 @@ let _ = require('lodash')
 let axios = require('axios')
 axios.defaults.headers.common['Cache-Control'] = 'no-cache'
 
-let service = {
+const currencies = ['eth', 'btc', 'bch', 'ltc', 'omg', 'xrp']
 
-}
+let service = {}
 
-service.current = {bx: {eth: {}, btc: {}, bch:{}, ltc: {}, omg:{}, xrp:{}}}
+service.current = {bx: {}, cmc: {}}
+_.each(currencies, currency => {
+    service.current.bx[currency] = {}
+    service.current.cmc[currency] = {}
+})
 
 setInterval(()=> {
     axios.get('https://bx.in.th/api/').then(response => {        
-        if(response.data){
-            let result = response.data
-            _.each(_.values(result), item => {
-                if(item.primary_currency == 'THB' && service.current.bx[item.secondary_currency.toLowerCase()] !== undefined){
-                    service.current.bx[item.secondary_currency.toLowerCase()] = item
-                }
-            })
-            service.current.lastUpdated = new Date()
+        extract_result(response.data, 'bx', (market, item) => {
+            let currency = item.secondary_currency.toLowerCase()
+            if(item.primary_currency == 'THB' && service.current[market][currency] !== undefined){
+                return currency
+            }
+        })
+    })
+
+    
+    axios.get(`https://api.coinmarketcap.com/v1/ticker?convert=THB`).then(response => {
+        extract_result(response.data, 'cmc', (market, item) => {
+            let currency = item.symbol.toLowerCase()
+            if(service.current[market][currency] !== undefined)
+                return currency
+        })
+    })
+    
+}, 1000)
+
+function extract_result(result, market, conditioner){
+    _.each(_.values(result), item => {
+        let currency = conditioner(market, item)
+        if(currency){
+            service.current[market][currency] = item
         }
     })
-}, 1000)
+    service.current.lastUpdated = new Date()
+}
 
 module.exports = service;
