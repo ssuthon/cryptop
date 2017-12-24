@@ -1,0 +1,31 @@
+{
+  "name": "crypto",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-regenerator-runtime": "^6.5.0",
+    "lodash": "^4.17.4",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-act": "^1.5.1",
+    "redux-saga": "^0.16.0"
+  },
+  "scripts": {
+    "start": "concurrent \"npm run webpack\" \"npm run server\" \"live-server public\"",
+    "babel": "babel --presets=env,react src/index.js -o public/scripts/main.bundle.js",
+    "webpack": "webpack --watch",
+    "server": "cd server && nodemon src/main.js"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "concurrently": "^3.5.1",
+    "webpack": "^3.10.0"
+  }
+}
