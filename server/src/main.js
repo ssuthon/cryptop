@@ -24,3 +24,5 @@ app.get('/stats', function(req, res){
 app.listen(port, () => {
   logger.info(`App listening on port ${port}`)
 })
+
+require('./chatbot')

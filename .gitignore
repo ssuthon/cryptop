@@ -28,3 +28,5 @@ mock-server/images/**
 
 public/scripts/main.bundle.js
 public/scripts/main.bundle.js.map
+
+secret.json
