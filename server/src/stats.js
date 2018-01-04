@@ -4,7 +4,9 @@ axios.defaults.headers.common['Cache-Control'] = 'no-cache'
 
 const currencies = ['eth', 'btc', 'bch', 'ltc', 'omg', 'xrp']
 
-let service = {}
+let service = {
+    currencies
+}
 
 service.current = {bx: {}, cmc: {}}
 _.each(currencies, currency => {
@@ -20,6 +22,9 @@ setInterval(()=> {
                 return currency
             }
         })
+        if(service.bxPriceUpdateHandler){
+            service.bxPriceUpdateHandler()
+        }
     })
 
     
@@ -31,7 +36,7 @@ setInterval(()=> {
         })
     })
     
-}, 1000)
+}, 3000)
 
 function extract_result(result, market, conditioner){
     _.each(_.values(result), item => {
